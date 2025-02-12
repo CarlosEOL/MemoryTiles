@@ -1,9 +1,4 @@
 ﻿  MemoryTiles.cpp
-C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\Squretiles.h(29,9): error C2660: 'Squretiles::HideTiles': function does not take 1 arguments
-C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\Squretiles.h(48,10): message : see declaration of 'Squretiles::HideTiles'
-C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\Squretiles.h(29,9): message : while trying to match the argument list '(int)'
   Squretiles.cpp
-C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\Squretiles.h(29,9): error C2660: 'Squretiles::HideTiles': function does not take 1 arguments
-C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\Squretiles.h(48,10): message : see declaration of 'Squretiles::HideTiles'
-C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\Squretiles.h(29,9): message : while trying to match the argument list '(int)'
   Generating Code...
+  MemoryTiles.vcxproj -> C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\x64\Debug\MemoryTiles.exe

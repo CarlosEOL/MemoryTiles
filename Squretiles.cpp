@@ -16,7 +16,7 @@ void Squretiles::GenerateSqrTiles(std::vector <std::vector<bool>> grid)
         //std::cout << "\n"; //Debug
     }
 
-    std::cout << "Max Size Initiated: " << grid.size();
+    //std::cout << "Max Size Initiated: " << grid.size(); //Debug
 
     //Override local grid with generated grid//
     _grid = grid;
@@ -46,7 +46,7 @@ void Squretiles::DrawStringTiles(std::vector <std::vector<bool>> grid)
     }
 }
 
-void HideTiles() 
+void Squretiles::HideTiles() 
 {
     for (int y = 0; y < _sizeX; y++)
     {

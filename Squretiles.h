@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+//#include <string>
 #include <vector>
 
 struct Squretiles
@@ -11,7 +11,6 @@ private:
 
     //Initialize an empty vector that stores bools *I asked a friend about how to make an dynamic array*//
     std::vector <std::vector<bool>> _grid;
-
     
 public:
 
@@ -26,9 +25,12 @@ public:
         //Draw to Console//
         DrawStringTiles(_grid);
 
+        HideTiles();
 
-        //All this code is to learn what a nested vector can do.// 
-        /*
+
+        //All the code below helps me to learn what a nested vector can do.// 
+
+        /* Saves memory allocation for this specific vector.
         _grid.reserve(_sizeX);
 
         for (int y = 0; y <= _sizeX; y++)
