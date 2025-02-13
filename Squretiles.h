@@ -14,9 +14,13 @@ private:
     
 public:
 
+    //Record Coord so game can rememeber when checking for correct tiles/duplicate coord
+    std::vector <std::vector<int>> _tempCoord;
+
     //Constructor for Functions//
     Squretiles()
     {
+        //Properly initialize an nested vector by filling it with data
         _grid = std::vector<std::vector<bool>>(_sizeX, std::vector<bool>(_sizeX, false));
 
         //Create a new grid, filled with randomized true and false//
@@ -25,12 +29,13 @@ public:
         //Draw to Console//
         DrawStringTiles(_grid);
 
-        HideTiles();
+        //HideTiles();
 
 
         //All the code below helps me to learn what a nested vector can do.// 
 
-        /* Saves memory allocation for this specific vector.
+        /* 
+        //Saves memory allocation for this specific vector.
         _grid.reserve(_sizeX);
 
         for (int y = 0; y <= _sizeX; y++)
@@ -46,5 +51,6 @@ public:
     void GenerateSqrTiles(std::vector <std::vector<bool>>);
     void DrawStringTiles(std::vector <std::vector<bool>>);
     void HideTiles();
+    void CheckTiles(int, int);
     void IncreaseSize();
 };

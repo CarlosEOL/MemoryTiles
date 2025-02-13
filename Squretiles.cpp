@@ -58,6 +58,17 @@ void Squretiles::HideTiles()
     }
 }
 
+void Squretiles::CheckTiles(int row, int col) 
+{
+    for (int y = 0; y < _sizeX; y++)
+    {
+        for (int x = 0; x < _sizeX; x++)
+        {
+            
+        }
+    }
+}
+
 void Squretiles::IncreaseSize() 
 {
     _sizeX++;
