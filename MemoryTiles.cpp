@@ -48,6 +48,12 @@ int main()
 
         //grid.CheckTiles(_coord[0], _coord[1]);
 
+
+        if (true) 
+        {
+            Level++;
+        }
+
         if (Level & 2) 
         {
             Level++;
