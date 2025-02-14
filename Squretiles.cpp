@@ -2,8 +2,8 @@
 #include "Squretiles.h"
 
 #include <iostream>
-#include <thread>   // For sleep_for
-#include <chrono>   // For duration
+#include <thread>   // For sleep_for from GPT
+#include <chrono>   // For duration from GPT
 
 void Squretiles::GenerateSqrTiles(std::vector <std::vector<bool>> grid)
 {
@@ -48,6 +48,11 @@ void Squretiles::DrawStringTiles(std::vector <std::vector<bool>> grid)
     }
 
     std::this_thread::sleep_for(std::chrono::seconds(3));
+}
+
+void Squretiles::DrawInputedTiles() 
+{
+    
 }
 
 void Squretiles::HideTiles() 

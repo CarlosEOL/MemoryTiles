@@ -15,12 +15,13 @@ private:
 public:
 
     //Record Coord so game can rememeber when checking for correct tiles/duplicate coord
-    std::vector <std::vector<int>> _tempCoord;
+    std::vector <std::vector<int>> _SavedCoords;
 
     //Constructor for Functions//
     Squretiles()
     {
-        //Properly initialize an nested vector by filling it with data
+        //Properly initialize an nested vectors by filling it with data//
+        _SavedCoords = std::vector<std::vector<int>>(3, std::vector<int>(3, 0));
         _grid = std::vector<std::vector<bool>>(_sizeX, std::vector<bool>(_sizeX, false));
 
         //Create a new grid, filled with randomized true and false//
@@ -50,10 +51,11 @@ public:
     char empty = 'O';
     char sqr = 'X';
 
-    //These are pretty straightforward, most of them have O2 algorithm that checks the _grid for grid randomization or checking tile true & false.
+    // These are pretty straightforward, most of them have O2 algorithm that checks the _grid for grid randomization or checking tile true & false.
     void GenerateSqrTiles(std::vector <std::vector<bool>>);
     void DrawStringTiles(std::vector <std::vector<bool>>);
-    void HideTiles();
-    bool CheckTiles(int, int); // Checks if the tile is true, returns tile bool. Input y,x coord//
-    void IncreaseSize();
+    void HideTiles(); // Simple Draw Grid of Os//
+    bool CheckTiles(int, int); // Checks if the tile is true, returns tile bool. Input y,x coord and save it to _SavedCoords //
+    void DrawInputedTiles(); // Draws all guessed tiles //
+    void IncreaseSize(); // Increase grid size //
 };

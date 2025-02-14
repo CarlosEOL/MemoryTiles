@@ -20,6 +20,8 @@ using namespace std;
 
 int main()
 {
+    int Level = 1;
+
     Squretiles grid = Squretiles();
 
     //Enter Game State, handles user input//
@@ -35,9 +37,11 @@ int main()
 
         //grid.CheckTiles(_coord[0], _coord[1]);
 
-        
-
-
+        if (Level & 2) 
+        {
+            Level++;
+            grid.IncreaseSize();
+        }
 
         this_thread::sleep_for(chrono::seconds(10));
     }
