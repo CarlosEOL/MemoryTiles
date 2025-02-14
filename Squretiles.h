@@ -29,10 +29,12 @@ public:
         //Draw to Console//
         DrawStringTiles(_grid);
 
-        //HideTiles();
+
+        //Hide Tiles By Drawing Bunch of Os
+        HideTiles();
 
 
-        //All the code below helps me to learn what a nested vector can do.// 
+        //All the code below helped me learn how to initiate a nested vector.// 
 
         /* 
         //Saves memory allocation for this specific vector.
@@ -48,9 +50,10 @@ public:
     char empty = 'O';
     char sqr = 'X';
 
+    //These are pretty straightforward, most of them have O2 algorithm that checks the _grid for grid randomization or checking tile true & false.
     void GenerateSqrTiles(std::vector <std::vector<bool>>);
     void DrawStringTiles(std::vector <std::vector<bool>>);
     void HideTiles();
-    void CheckTiles(int, int);
+    bool CheckTiles(int, int); // Checks if the tile is true, returns tile bool. Input y,x coord//
     void IncreaseSize();
 };
