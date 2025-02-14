@@ -47,7 +47,7 @@ void Squretiles::DrawStringTiles(std::vector <std::vector<bool>> grid)
         }
     }
 
-    std::this_thread::sleep_for(std::chrono::seconds(3));
+    this_thread::sleep_for(std::chrono::seconds(3));
 }
 
 void Squretiles::DrawInputedTiles() 
@@ -73,6 +73,8 @@ void Squretiles::HideTiles()
 bool Squretiles::CheckTiles(int row, int col) 
 {
     return _grid[col][row]; //y,x
+
+    //Then Save Row and Col to _SavedCoords
 }
 
 void Squretiles::IncreaseSize() 

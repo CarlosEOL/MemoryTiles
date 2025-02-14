@@ -2,6 +2,17 @@
 //#include <string>
 #include <vector>
 
+// Summery //
+// 
+// Since I'm making this game alone, and wants to see it into fruition.
+// I'm going to add enough UXR such as actual graphics using an graphic library like GLFW instead of a simple console in the later stages.
+// I'll have a link to Github and update it every single day untill the game is fully flushed out.
+//
+// Reference: https://humanbenchmark.com/tests/memory
+// 
+
+using namespace std;
+
 struct Squretiles
 {
 private:
@@ -10,19 +21,19 @@ private:
     int _sizeX = 3;
 
     //Initialize an empty vector that stores bools *I asked a friend about how to make an dynamic array*//
-    std::vector <std::vector<bool>> _grid;
+    vector <vector<bool>> _grid;
     
 public:
 
     //Record Coord so game can rememeber when checking for correct tiles/duplicate coord
-    std::vector <std::vector<int>> _SavedCoords;
+    vector <vector<int>> _SavedCoords;
 
     //Constructor for Functions//
     Squretiles()
     {
         //Properly initialize an nested vectors by filling it with data//
-        _SavedCoords = std::vector<std::vector<int>>(3, std::vector<int>(3, 0));
-        _grid = std::vector<std::vector<bool>>(_sizeX, std::vector<bool>(_sizeX, false));
+        _SavedCoords = vector<vector<int>>(3, vector<int>(3, 0));
+        _grid = vector<vector<bool>>(_sizeX, vector<bool>(_sizeX, false));
 
         //Create a new grid, filled with randomized true and false//
         GenerateSqrTiles(_grid);
@@ -49,7 +60,8 @@ public:
     }
 
     char empty = 'O';
-    char sqr = 'X';
+    char sqr = '0';
+    char wrong = 'X';
 
     // These are pretty straightforward, most of them have O2 algorithm that checks the _grid for grid randomization or checking tile true & false.
     void GenerateSqrTiles(std::vector <std::vector<bool>>);

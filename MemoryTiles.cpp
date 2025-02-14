@@ -5,19 +5,28 @@
 #include <chrono>   //For duration - From ChatGPT
 #include "Squretiles.h"
 
-namespace Functions 
-{
-   void intToArray(int);
-
-}
-
-void Functions::intToArray(int i)
-{
-
-}
-
 using namespace std;
 
+namespace Functions
+{
+    vector<int> intToArray(int);
+
+}
+
+vector<int> Functions::intToArray(int num) //See Reference: https://stackoverflow.com/questions/1860983/convert-integer-to-array
+{
+    vector <int> resultArray;
+    while (true)
+    {
+        resultArray.insert(resultArray.begin(), num % 10);
+        num /= 10;
+        if (num == 0)
+            return resultArray;
+    }
+    return resultArray;
+}
+
+using namespace Functions;
 int main()
 {
     int Level = 1;
@@ -27,13 +36,15 @@ int main()
     //Enter Game State, handles user input//
     while (1) 
     {
+        //Take in User Input in Console//
         int _temp;
         cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";
         cin >> _temp;
 
-        Functions::intToArray(_temp);
+        //Future Codes
+        //int array[] = new int[2]; //Temp Initialized Coord
 
-        //int _coord[2] = Functions::intToArray(_temp);
+        //array = Functions::intToArray(_temp);
 
         //grid.CheckTiles(_coord[0], _coord[1]);
 
