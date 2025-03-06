@@ -3,9 +3,11 @@
 #include <string>
 #include <thread>   //For sleep_for - From ChatGPT
 #include <chrono>   //For duration - From ChatGPT
+#include "GLFW/glfw3.h"
 #include "Squretiles.h"
 
 using namespace std;
+
 
 namespace Functions
 {
@@ -30,12 +32,13 @@ using namespace Functions;
 int main()
 {
     int Level = 1;
-
+    //Create Squaretiles for game function//
     Squretiles grid = Squretiles();
 
     //Enter Game State, handles user input//
-    while (1) 
+    while (1)
     {
+
         //Take in User Input in Console//
         int _temp;
         cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";
@@ -47,14 +50,23 @@ int main()
         //array = Functions::intToArray(_temp);
 
         //grid.CheckTiles(_coord[0], _coord[1]);
+        switch (true)
+        {
+        case true:
 
+            break;
 
-        if (true) 
+        case false:
+
+            break;
+        }
+
+        if (true)
         {
             Level++;
         }
 
-        if (Level & 2) 
+        if (Level & 2)
         {
             Level++;
             grid.IncreaseSize();
@@ -62,6 +74,6 @@ int main()
 
         this_thread::sleep_for(chrono::seconds(10));
     }
-    
+
     return 0;
 }

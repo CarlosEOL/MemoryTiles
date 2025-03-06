@@ -5,8 +5,11 @@
 #include <thread>   // For sleep_for from GPT
 #include <chrono>   // For duration from GPT
 
-void Squretiles::GenerateSqrTiles(std::vector <std::vector<bool>> grid)
+using namespace std;
+
+void Squretiles::GenerateSqrTiles()
 {
+    vector<vector<bool>> grid = vector<vector<bool>>(_sizeX, vector<bool>(_sizeX, false));
     for (int y = 0; y < _sizeX; y++)
     {
         for (int x = 0; x < _sizeX; x++)

@@ -33,10 +33,9 @@ public:
     {
         //Properly initialize an nested vectors by filling it with data//
         _SavedCoords = vector<vector<int>>(3, vector<int>(3, 0));
-        _grid = vector<vector<bool>>(_sizeX, vector<bool>(_sizeX, false));
 
         //Create a new grid, filled with randomized true and false//
-        GenerateSqrTiles(_grid);
+        GenerateSqrTiles();
 
         //Draw to Console//
         DrawStringTiles(_grid);
@@ -64,7 +63,7 @@ public:
     char wrong = 'X';
 
     // These are pretty straightforward, most of them have O2 algorithm that checks the _grid for grid randomization or checking tile true & false.
-    void GenerateSqrTiles(std::vector <std::vector<bool>>);
+    void GenerateSqrTiles();
     void DrawStringTiles(std::vector <std::vector<bool>>);
     void HideTiles(); // Simple Draw Grid of Os//
     bool CheckTiles(int, int); // Checks if the tile is true, returns tile bool. Input y,x coord and save it to _SavedCoords //
