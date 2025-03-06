@@ -42,7 +42,7 @@ namespace Functions
 using namespace Functions;
 int main()
 {
-    int Lifes = 3;
+    int Lifes = 2;
     int Level = 1;
     //Create Squaretiles for game function//
     Squretiles grid = Squretiles();
@@ -66,7 +66,8 @@ int main()
         case true:
 
             Level++;
-            Lifes = 3;
+            Lifes = 2;
+
             if (Level & 2)
             {
                 
