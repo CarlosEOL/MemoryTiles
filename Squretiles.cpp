@@ -62,9 +62,9 @@ void Squretiles::DrawInputedTiles(vector<int> tempCoord)
         std::cout << "\n";
         for (int x = 0; x < _sizeX; x++)
         {
-            if (y == tempCoord[0] && x == tempCoord[1])
+            if (y == tempCoord[1] && x == tempCoord[0])
             {
-                if (_grid[tempCoord[0]][tempCoord[1]]) 
+                if (_grid[tempCoord[1]][tempCoord[0]]) 
                 {
                     cout << sqr;
                 }
@@ -93,7 +93,7 @@ void Squretiles::HideTiles()
         }
     }
 
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    //std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 bool Squretiles::CheckTiles(int row, int col) 
