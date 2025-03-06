@@ -32,14 +32,14 @@ void Squretiles::GenerateSqrTiles()
     
 }
 
-void Squretiles::DrawStringTiles(std::vector <std::vector<bool>> grid)
+void Squretiles::DrawStringTiles()
 {
     for (int y = 0; y < _sizeX; y++)
     {
         std::cout << "\n";
         for (int x = 0; x < _sizeX; x++)
         {
-            if (grid[y][x])
+            if (_grid[y][x])
             {
                 std::cout << sqr;
             }
@@ -53,7 +53,7 @@ void Squretiles::DrawStringTiles(std::vector <std::vector<bool>> grid)
     this_thread::sleep_for(std::chrono::seconds(3));
 }
 
-void Squretiles::DrawInputedTiles() 
+void Squretiles::DrawInputedTiles(vector<int> tempCoord)
 {
     
 }

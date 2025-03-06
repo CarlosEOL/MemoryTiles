@@ -45,7 +45,7 @@ int main()
         cin >> _temp;
 
         //Future Codes
-        //int array[] = new int[2]; //Temp Initialized Coord
+        grid.DrawInputedTiles() //Temp Initialized Coord
 
         //array = Functions::intToArray(_temp);
 
@@ -53,7 +53,9 @@ int main()
         switch (true)
         {
         case true:
-
+            grid.GenerateSqrTiles();
+            this_thread::sleep_for(chrono::seconds(1));
+            grid.DrawStringTiles();
             break;
 
         case false:
