@@ -12,12 +12,13 @@ using namespace std;
 namespace Functions
 {
     vector<int> intToVector(int);
+    int intUserInput();
 
 }
 
 vector<int> Functions::intToVector(int num) //See Reference: https://stackoverflow.com/questions/1860983/convert-integer-to-array
 {
-    vector <int> resultArray;
+    vector <int> resultArray = vector<int>(2,0);
     while (true)
     {
         resultArray.insert(resultArray.begin(), num % 10);
@@ -26,6 +27,14 @@ vector<int> Functions::intToVector(int num) //See Reference: https://stackoverfl
             return resultArray;
     }
     return resultArray;
+}
+
+int Functions::intUserInput() 
+{
+    int _temp;
+    cin >> _temp;
+
+    return _temp;
 }
 
 using namespace Functions;
@@ -38,17 +47,15 @@ int main()
     //Enter Game State, handles user input//
     while (1)
     {
-
         //Take in User Input in Console//
-        int _temp;
-        cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";
-        cin >> _temp;
         
-        vector<int> array = Functions::intToVector(_temp);
+        cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";
+        
+        vector<int> array = Functions::intToVector(intUserInput());
 
         ///cout << _temp << " is what you inputed, covert to " << array[0] << "," << array[1];
+        grid.DrawInputedTiles(array); //Temp Initialized Coord
         this_thread::sleep_for(chrono::seconds(1));
-        grid.DrawInputedTiles(Functions::intToVector(_temp)); //Temp Initialized Coord
 
         //array = Functions::intToVector(_temp);
 
@@ -76,7 +83,7 @@ int main()
             grid.IncreaseSize();
         }
 
-        this_thread::sleep_for(chrono::seconds(10));
+        //this_thread::sleep_for(chrono::seconds(10));
     }
 
     return 0;

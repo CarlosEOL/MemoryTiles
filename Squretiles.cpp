@@ -34,6 +34,7 @@ void Squretiles::GenerateSqrTiles()
 
 void Squretiles::DrawStringTiles()
 {
+    system("cls");
     for (int y = 0; y < _sizeX; y++)
     {
         std::cout << "\n";
@@ -55,7 +56,29 @@ void Squretiles::DrawStringTiles()
 
 void Squretiles::DrawInputedTiles(vector<int> tempCoord)
 {
-    
+    system("cls");
+    for (int y = 0; y < _sizeX; y++)
+    {
+        std::cout << "\n";
+        for (int x = 0; x < _sizeX; x++)
+        {
+            if (y == tempCoord[0] && x == tempCoord[1])
+            {
+                if (_grid[tempCoord[0]][tempCoord[1]]) 
+                {
+                    cout << sqr;
+                }
+                else
+                {
+                    cout << wrong;
+                }
+            }
+            else
+            {
+                std::cout << empty;
+            }
+        }
+    }
 }
 
 void Squretiles::HideTiles() 
