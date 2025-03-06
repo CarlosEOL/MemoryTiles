@@ -11,11 +11,11 @@ using namespace std;
 
 namespace Functions
 {
-    vector<int> intToArray(int);
+    vector<int> intToVector(int);
 
 }
 
-vector<int> Functions::intToArray(int num) //See Reference: https://stackoverflow.com/questions/1860983/convert-integer-to-array
+vector<int> Functions::intToVector(int num) //See Reference: https://stackoverflow.com/questions/1860983/convert-integer-to-array
 {
     vector <int> resultArray;
     while (true)
@@ -43,19 +43,24 @@ int main()
         int _temp;
         cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";
         cin >> _temp;
+        
+        vector<int> array = Functions::intToVector(_temp);
 
-        //Future Codes
-        grid.DrawInputedTiles() //Temp Initialized Coord
+        ///cout << _temp << " is what you inputed, covert to " << array[0] << "," << array[1];
+        this_thread::sleep_for(chrono::seconds(1));
+        grid.DrawInputedTiles(Functions::intToVector(_temp)); //Temp Initialized Coord
 
-        //array = Functions::intToArray(_temp);
+        //array = Functions::intToVector(_temp);
 
         //grid.CheckTiles(_coord[0], _coord[1]);
         switch (true)
         {
         case true:
+            
             grid.GenerateSqrTiles();
-            this_thread::sleep_for(chrono::seconds(1));
             grid.DrawStringTiles();
+            this_thread::sleep_for(chrono::seconds(1));
+            grid.HideTiles();
             break;
 
         case false:
@@ -63,10 +68,7 @@ int main()
             break;
         }
 
-        if (true)
-        {
-            Level++;
-        }
+        Level++;
 
         if (Level & 2)
         {
