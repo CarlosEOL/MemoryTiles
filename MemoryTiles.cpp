@@ -9,7 +9,6 @@
 
 using namespace std;
 
-
 namespace Functions
 {
     //Helper Code
@@ -43,6 +42,10 @@ namespace Functions
 using namespace Functions;
 int main()
 {
+    if (!glfwInit()) {
+        cout << "Yikes";
+    }
+
     int Lifes = 2;
     int Level = 1;
     //Create Squaretiles for game function//

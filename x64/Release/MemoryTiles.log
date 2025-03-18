@@ -1,0 +1,5 @@
+﻿  MemoryTiles.cpp
+C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\MemoryTiles.cpp(72,17): warning C4144: '!': relational expression as switch expression
+  Squretiles.cpp
+MemoryTiles.obj : error LNK2001: unresolved external symbol glfwInit
+C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\x64\Release\MemoryTiles.exe : fatal error LNK1120: 1 unresolved externals
