@@ -3,7 +3,8 @@
 #include <string>
 #include <thread>   //For sleep_for - From ChatGPT
 #include <chrono>   //For duration - From ChatGPT
-#include "GLFW/glfw3.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include "Squretiles.h"
 
 using namespace std;
@@ -79,7 +80,7 @@ int main()
 
             break;
 
-        case false:
+        case false: //Game Logic when player has life
 
             //grid.DrawStringTiles();
             //this_thread::sleep_for(chrono::seconds(1));
