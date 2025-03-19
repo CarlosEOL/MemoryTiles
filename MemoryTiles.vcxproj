@@ -117,8 +117,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\lib;"C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\lib\glfw3dll.lib"</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\lib;"C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\lib"</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;opengl32.lib </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

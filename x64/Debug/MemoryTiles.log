@@ -1,4 +1,2 @@
-﻿  MemoryTiles.cpp
-C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\MemoryTiles.cpp(68,17): warning C4144: '!': relational expression as switch expression
-MemoryTiles.obj : error LNK2019: unresolved external symbol glfwInit referenced in function main
+﻿MemoryTiles.obj : error LNK2019: unresolved external symbol glfwInit referenced in function main
 C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\x64\Debug\MemoryTiles.exe : fatal error LNK1120: 1 unresolved externals
