@@ -61,12 +61,12 @@ void Squretiles::DrawStringTiles()
 void Squretiles::DrawInputedTiles(vector<int> tempCoord) // IM ACTUALLY GOING INSANE TRYING TO FIGURE THIS OUT PLEASE HELP.
 {
     system("cls");
-
-    _SavedCoords[currentSaveIndex] = tempCoord;
-
+    
     if (tempCoord == PreviousCoord)
         currentSaveIndex--;
-
+    
+    _SavedCoords[currentSaveIndex] = tempCoord;
+    
     PreviousCoord = tempCoord;
 
     // CHECK TILE GRID USING SAVED COORDS //
@@ -81,9 +81,9 @@ void Squretiles::DrawInputedTiles(vector<int> tempCoord) // IM ACTUALLY GOING IN
             for (int i = 0; i < maxSaveIndex; i++) //Check Saved indexes, Im like, JESUS CHRIST THERE IS 2 NESTED FOR LOOP OH NO
             {
                 //Check if its double -1, and the savecoord's xy is current xy
-                if (_SavedCoords[i][0] == x && _SavedCoords[i][1] == y) //if x,y corespond to savecoords, in this case, x = y y = x
+                if (_SavedCoords[i][1] == y && _SavedCoords[i][0] == x) //if x,y corespond to savecoords, in this case, x = y y = x
                 {
-                    if (_grid[x][y])
+                    if (_grid[y][x])
                     {
                         cout << sqr;
                     }
