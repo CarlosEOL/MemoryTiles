@@ -2,13 +2,17 @@
 #include "Squretiles.h"
 
 #include <iostream>
-#include <thread>   // For sleep_for from GPT
-#include <chrono>   // For duration from GPT
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
 void Squretiles::GenerateSqrTiles()
 {
+    srand(time(NULL)); //From https://stackoverflow.com/questions/14849866/c-rand-is-not-really-random, so that rand() is truly random
+    //Properly initialize an nested vectors by filling it with data, if the saved coords are -1 they are ignored. 
+    _SavedCoords = vector<vector<int>>(maxSaveIndex, vector<int>(2, -1));
+    
     vector<vector<bool>> grid = vector<vector<bool>>(_sizeX, vector<bool>(_sizeX, false));
     for (int y = 0; y < _sizeX; y++)
     {
@@ -54,32 +58,46 @@ void Squretiles::DrawStringTiles()
     this_thread::sleep_for(std::chrono::seconds(3));
 }
 
-void Squretiles::DrawInputedTiles(vector<int> tempCoord)
+void Squretiles::DrawInputedTiles(vector<int> tempCoord) // IM ACTUALLY GOING INSANE TRYING TO FIGURE THIS OUT PLEASE HELP.
 {
     system("cls");
 
     _SavedCoords[currentSaveIndex] = tempCoord;
+
+    if (tempCoord == PreviousCoord)
+        currentSaveIndex--;
+
+    PreviousCoord = tempCoord;
+
+    // CHECK TILE GRID USING SAVED COORDS //
     
-    for (int y = 0; y < _sizeX; y++)
+    for (int y = 0; y < _sizeX; y++) //Column
     {
-        std::cout << "\n";
-        for (int x = 0; x < _sizeX; x++)
+        cout << "\n";
+        for (int x = 0; x < _sizeX; x++) //Row
         {
-            if (y == tempCoord[1] && x == tempCoord[0])
+            bool hasGon = false;
+            
+            for (int i = 0; i < maxSaveIndex; i++) //Check Saved indexes, Im like, JESUS CHRIST THERE IS 2 NESTED FOR LOOP OH NO
             {
-                if (_grid[tempCoord[1]][tempCoord[0]]) 
+                //Check if its double -1, and the savecoord's xy is current xy
+                if (_SavedCoords[i][0] == x && _SavedCoords[i][1] == y) //if x,y corespond to savecoords, in this case, x = y y = x
                 {
-                    cout << sqr;
-                }
-                else
-                {
-                    cout << wrong;
+                    if (_grid[x][y])
+                    {
+                        cout << sqr;
+                    }
+                    else
+                    {
+                        cout << wrong;
+                    }
+                    hasGon = true;
                 }
             }
-            else
-            {
-                std::cout << empty;
-            }
+
+            //This part of the project just gave me brain fart
+            if (!hasGon)
+                cout << empty;
         }
     }
 
@@ -108,13 +126,15 @@ void Squretiles::HideTiles()
 
 bool Squretiles::CheckTiles(int row, int col) 
 {
+    cout << _grid[col][row];
     return _grid[col][row]; //y,x
-
-    //Then Save Row and Col to _SavedCoords
 }
 
 void Squretiles::IncreaseSize() 
 {
     _sizeX++;
+    currentSaveIndex = 0;
+    maxSaveIndex = _sizeX * _sizeX;
+    _SavedCoords = vector<vector<int>>(maxSaveIndex, vector<int>(2, -1));
 }
 

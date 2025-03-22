@@ -20,10 +20,14 @@ private:
     //Size of Grid//
     int _sizeX = 3;
 
+    //TempSaveCoord//
+    int totalCoordSize = 0;
+
     //Initialize an empty vector that stores bools *I asked a friend about how to make an dynamic array*//
     vector <vector<bool>> _grid;
 
-    int maxSaveIndex = 3;
+    vector<int> PreviousCoord;
+    int maxSaveIndex = _sizeX * _sizeX;
     
 public:
     //Record Coord so game can rememeber when checking for correct tiles/duplicate coord
@@ -33,9 +37,6 @@ public:
     //Constructor for Functions//
     Squretiles()
     {
-        //Properly initialize an nested vectors by filling it with data, if the saved coords are -1 they are ignored. 
-        _SavedCoords = vector<vector<int>>(maxSaveIndex, vector<int>(2, -1));
-
         //Create a new grid, filled with randomized true and false//
         GenerateSqrTiles();
 

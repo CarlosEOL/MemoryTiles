@@ -11,7 +11,8 @@ const unsigned int WIDTH = 800, HEIGHT = 800; //Window Size
 using namespace std;
 namespace Functions
 {
-    //Helper Code
+    //Helper Codes//
+    
     vector<int> intToVector(int);
     int intUserInput();
 
@@ -26,7 +27,6 @@ namespace Functions
             if (num == 0)
                 return resultArray;
         }
-        return resultArray;
     }
 
     int Functions::intUserInput()
@@ -45,22 +45,21 @@ using namespace Functions;
 int main()
 {
     
-    WindowManager window = WindowManager();
-    window.MakeNewWindow(WIDTH, HEIGHT);
-    cout<<"Made a new window.";
+    //WindowManager window = WindowManager();
+    //window.MakeNewWindow(WIDTH, HEIGHT);
+    //cout<<"Made a new window.";
     
-    int Lifes = 2;
+    int Lifes = 3;
     int Level = 1;
     
-    //Create Squaretiles for game function//
+    //Create Squaretiles for tile function//
     Squretiles grid = Squretiles();
     
-    //Enter Game State, handles user input//
-    while (window.isClosed())
+    //Enter Game State, handles user input// window.isClosed()
+    while (1)
     {
         //Update Per Frame
-        window.Update();
-
+        //window.Update();
         
         //Take in User Input in Console//
         cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";
@@ -70,6 +69,9 @@ int main()
         grid.DrawInputedTiles(array); //Temp Initialized Coord
         this_thread::sleep_for(chrono::seconds(1));
 
+        if (!grid.CheckTiles(array[0], array[1])) //check if the tile is false
+            Lifes--;
+
         //DEBUG CODE//
         //cout << grid.CheckTiles(array[0], array[1]);
 
@@ -78,7 +80,7 @@ int main()
         case true: //When Player has no more life, increase difficulty.
 
             Level++;
-            Lifes = 2;
+            Lifes = 3;
 
             if (Level & 2)
             {
@@ -95,13 +97,11 @@ int main()
 
             //grid.DrawStringTiles();
             //this_thread::sleep_for(chrono::seconds(1));
-            Lifes--;
-            grid.HideTiles();
+            //Lifes--;
             break;
         }
         
-        //this_thread::sleep_for(chrono::seconds(10));
-        cout<<"\nYOU DIED!";
+        this_thread::sleep_for(chrono::seconds(1));
     }
     
     glfwTerminate();
