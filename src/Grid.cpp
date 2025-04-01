@@ -24,7 +24,7 @@ void Grid::GenerateGrid()
     std::cout << "WrongTex ID: " << assets.wrongTex << "\n";
     
     float tileSize = 1.0f / _size; //This can change depend on the size of the grid.
-    float tileSpacing = tileSize * 2;
+    float tileSpacing = tileSize * 2.01f;
 
     cout<<"Tile Spacing: " << tileSpacing << "\n";
 
