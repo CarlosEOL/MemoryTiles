@@ -23,10 +23,14 @@ void Tile::Draw()
     else if (state == RevealedWrong)
         currentTexture = wrongTexture;
 
+    cout<<"Drawing Tile"<<endl; //This is not called.
+    
     //Bind texture to texture2D, texture edit.
     glBindTexture(GL_TEXTURE_2D, currentTexture);
 
-    glUniform2f(glGetUniformLocation(WindowManager::shaderProgram, "offset"), 0, 0);
+    glUniform2f(glGetUniformLocation(WindowManager::shaderProgram, "offset"), x, y);
+
+    //GLuint offsetLoc = glGetUniformLocation(WindowManager::shaderProgram, "offset");
 
     //Bind the shared VAO
     glBindVertexArray(WindowManager::VAO);

@@ -21,9 +21,9 @@ uniform vec2 offset;
 out vec2 TexCoord;
 
 void main() {
-    vec2 pos = apos + offset;
+    vec2 pos = aPos + offset;
     
-    gl_Position = vec4(aPos, 0.0, 1.0); 
+    gl_Position = vec4(pos, 0.0, 1.0); 
     //Built in Variable in GLFW, tells where to draw the vert on screen. 
     //0,0 is Z depth, unused in 2D, 1.0 is making sure you don't go 4D, WHAT IN THE BLACK MAGIC IS THIS
 
@@ -140,8 +140,8 @@ void WindowManager::MakeNewWindow(int WIDTH, int HEIGHT)
     unsigned int fShader = createShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
 
     //attach compiled shader to shader program, assume that we only need to use this once, this is the background.
-    glAttachShader(shaderProgram, fShader);
     glAttachShader(shaderProgram, vShader);
+    glAttachShader(shaderProgram, fShader);
     glLinkProgram(shaderProgram); //Tells GLFW that v,fshader are working together.
     glUseProgram(shaderProgram); //Use the shader program.
 
@@ -178,5 +178,3 @@ bool WindowManager::isClosed()
 {
     return glfwWindowShouldClose(window);
 }
-
-

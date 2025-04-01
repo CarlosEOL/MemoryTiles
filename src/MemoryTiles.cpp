@@ -42,14 +42,14 @@ namespace Functions
 using namespace Functions;
 int main()
 {
-    WindowManager window = WindowManager();
+    WindowManager window;
     window.MakeNewWindow(WIDTH, HEIGHT);
     cout<<"Made a new window.\n" << endl;
 
-    Player player = Player();
+    Player player;
     cout<<"Made a new player.\n" << endl;
 
-    Grid grid = Grid();
+    Grid grid = Grid(3); //Don't use = new Grid(), this creates a pointer.
     
     //Enter Game State, handles user input// window.isClosed()
     while (!window.isClosed())
