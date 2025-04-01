@@ -13,11 +13,8 @@ namespace Functions
 {
     //Helper Codes//
     
-    vector<int> intToVector(int);
-    int intUserInput();
-
     //Function Def
-    vector<int> Functions::intToVector(int num) //See Reference: https://stackoverflow.com/questions/1860983/convert-integer-to-array
+    vector<int> intToVector(int num) //See Reference: https://stackoverflow.com/questions/1860983/convert-integer-to-array
     {
         vector <int> resultArray = vector<int>(2, 0);
         while (true)
@@ -29,7 +26,7 @@ namespace Functions
         }
     }
 
-    int Functions::intUserInput()
+    int intUserInput()
     {
         int _temp;
         cin >> _temp;
@@ -45,9 +42,9 @@ using namespace Functions;
 int main()
 {
     
-    //WindowManager window = WindowManager();
-    //window.MakeNewWindow(WIDTH, HEIGHT);
-    //cout<<"Made a new window.";
+    WindowManager window = WindowManager();
+    window.MakeNewWindow(WIDTH, HEIGHT);
+    cout<<"Made a new window.";
     
     int Lifes = 3;
     int Level = 1;
@@ -56,11 +53,12 @@ int main()
     Squretiles grid = Squretiles();
     
     //Enter Game State, handles user input// window.isClosed()
-    while (1)
+    while (!window.isClosed())
     {
         //Update Per Frame
-        //window.Update();
+        window.Update();
         
+/*
         //Take in User Input in Console//
         cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";
         vector<int> array = intToVector(intUserInput());
@@ -75,6 +73,7 @@ int main()
         //DEBUG CODE//
         //cout << grid.CheckTiles(array[0], array[1]);
 
+ * Old Code for Text-based game, Use GLFW for UXR
         switch (!Lifes) //If the game continues
         {
         case true: //When Player has no more life, increase difficulty.
@@ -100,8 +99,8 @@ int main()
             //Lifes--;
             break;
         }
-        
-        this_thread::sleep_for(chrono::seconds(1));
+*/
+        //this_thread::sleep_for(chrono::seconds(1));
     }
     
     glfwTerminate();
