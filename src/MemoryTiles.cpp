@@ -74,6 +74,7 @@ int main()
         //cout << grid.CheckTiles(array[0], array[1]);
 
  * Old Code for Text-based game, Use GLFW for UXR
+ 
         switch (!Lifes) //If the game continues
         {
         case true: //When Player has no more life, increase difficulty.

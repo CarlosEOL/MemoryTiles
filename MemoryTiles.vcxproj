@@ -403,6 +403,7 @@
       <AdditionalUsingDirectories>"C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\include"</AdditionalUsingDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="src\Tile.cpp" />
     <ClCompile Include="src\WindowManager.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -485,6 +486,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Squretiles.h" />
+    <ClInclude Include="src\Tile.h" />
     <ClInclude Include="src\WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,9 @@
+#include "glad/glad.h"
 #include "WindowManager.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
 #include <iostream>
 
 using namespace std;
@@ -29,7 +32,7 @@ const char* fragmentShaderSource = R"(
 out vec4 FragColor; //R,G,B,A
 in vec2 TexCoord; //U.V
 
-uniform sampler2D texture1;  //sampler2D is also what we had in UE5, it takes in an empty image when created, but has parameter of 0,0,0,0 as well.
+uniform sampler2D texture1;  //sampler2D is also what we had in UE5, it takes in an empty black image when created, but has parameter of 0,0,0,0 as well.
 
 void main() {
     FragColor = texture(texture1, TexCoord); //So this would be a black texture with UV wrapped on a triangle.
@@ -47,16 +50,23 @@ float vertices[] = {
     // No time to read documentation, maybe it is the way it was set up the vertex shader since it takes up vec4.
 };
 
-unsigned int indices[] = { //What is this... oh GLFW can only draw triangles like most engines, so 012 for the first and 230 for the second triangle, a square.
+unsigned int indices[] = {
+    //What is this...
+    //oh GLFW can only draw triangles like most engines, so 012 for the first and 230 for the second triangle, a square.
     0, 1, 2,
     2, 3, 0
 };
 
-unsigned int createShader(GLenum type, const char* source) {
-    unsigned int shader = glCreateShader(type);
+//GLenum takes in both Vertex and Fragment Shader, source takes in the Shader Source above
+//source is stored in C-String, but why is it char, C++'s string system is so weird.
+
+// I'd imagine, char is 'C', and *char can store "String". Because GLFW is written in C, now wonder I had this much of confusion.
+
+unsigned int createShader(GLenum type, const char* source) { 
+    unsigned int shader = glCreateShader(type); //Shader object
     
-    glShaderSource(shader, 1, &source, nullptr);
-    glCompileShader(shader);
+    glShaderSource(shader, 1, &source, nullptr); //nullptr makes sure that the object uses the entire string. char**
+    glCompileShader(shader); //GLFW shader object compilation
     return shader;
 }
 
@@ -100,13 +110,16 @@ void WindowManager::MakeNewWindow(int WIDTH, int HEIGHT)
 
     glViewport(0, 0, WIDTH, HEIGHT);
 
-    // Compile shaders
+    //compiling shaders using creatreShader() for cleaner code
     unsigned int vShader = createShader(GL_VERTEX_SHADER, vertexShaderSource);
     unsigned int fShader = createShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+
+    //attach compiled shader to shader program, assume that we only need to use this once?
     unsigned int shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vShader);
     glAttachShader(shaderProgram, fShader);
     glLinkProgram(shaderProgram);
+    glUseProgram(shaderProgram);
 }
 
 bool WindowManager::isClosed()
