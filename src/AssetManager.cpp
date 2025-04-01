@@ -35,6 +35,10 @@ GLuint AssetManager::LoadTexture(const char* filePath) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Smoother scaling
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+    if (textureID == 0) {
+        std::cerr << "Invalid texture loaded!" << std::endl;
+    }
+    
     stbi_image_free(data); // Free CPU memory
     return textureID;
 }

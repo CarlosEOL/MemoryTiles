@@ -24,10 +24,13 @@ void Tile::Draw()
         currentTexture = wrongTexture;
 
     cout<<"Drawing Tile"<<endl; //This is not called.
+
     
-    //Bind texture to texture2D, texture edit.
+    //Select, then Bind texture to texture2D, texture edit.
+    glActiveTexture(GL_TEXTURE0); // Select texture unit 0
     glBindTexture(GL_TEXTURE_2D, currentTexture);
 
+    //Offset image in GLFW worldlocglActiveTexture(GL_TEXTURE0); // Select texture unit 0
     glUniform2f(glGetUniformLocation(WindowManager::shaderProgram, "offset"), x, y);
 
     //GLuint offsetLoc = glGetUniformLocation(WindowManager::shaderProgram, "offset");
@@ -42,6 +45,9 @@ void Tile::Draw()
     glBindVertexArray(0);
 
     cout << "Drawing Tile at: " << x << ", " << y << endl;
+    cout << "Using Imaage ID: " << currentTexture << endl;
+
+    std::cout << "Program ID: " << WindowManager::shaderProgram << endl;
 }
 
 void Tile::Reveal()

@@ -18,17 +18,28 @@ void Grid::GenerateGrid()
     
     //vector<vector<bool>> grid = vector<vector<bool>>(_sizeX, vector<bool>(_sizeX, false));
     auto& assets = AssetManager::Get(); //auto is sort of like var in C#, it deduces object type, get asset manager's instance
+
+    std::cout << "HiddenTex ID: " << assets.hiddenTex << "\n";
+    std::cout << "RightTex ID: " << assets.rightTex << "\n";
+    std::cout << "WrongTex ID: " << assets.wrongTex << "\n";
     
-    float tileSize = 0.2f; //This can change depend on the size of the grid.
-    float startX = -1.0f + tileSize;
-    float startY =  1.0f - tileSize;
+    float tileSize = 1.0f / _size; //This can change depend on the size of the grid.
+    float tileSpacing = tileSize * 2;
+
+    cout<<"Tile Spacing: " << tileSpacing << "\n";
+
+    float gridWidth = _size * tileSpacing;
+    float gridHeight = _size * tileSpacing;
+    
+    float startX = -gridWidth / 2.0f + tileSpacing / 2.0f;
+    float startY =  gridHeight / 2.0f - tileSpacing / 2.0f;
     
     for (int row = 0; row < _size; row++) {
         for (int col = 0; col < _size; col++) {
 
             //This is scaled for image size
-            float x = startX + col * tileSize * 2;
-            float y = startY - row * tileSize * 2;
+            float x = startX + col * tileSpacing;
+            float y = startY - row * tileSpacing;
 
             tileGrid.emplace_back(Tile(x, y, tileSize,
                 assets.hiddenTex, assets.rightTex, assets.wrongTex, rand()%2)); //Takes in coord, image assets and random true/false

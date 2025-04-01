@@ -7,7 +7,7 @@
 #include "Grid.h"
 #include "WindowManager.h"
 
-const unsigned int WIDTH = 850, HEIGHT = 850; //Window Size
+const unsigned int WIDTH = 1000, HEIGHT = 1000; //Window Size
 
 using namespace std;
 namespace Functions

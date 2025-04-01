@@ -38,19 +38,20 @@ const char* fragmentShaderSource = R"(
 out vec4 FragColor; //R,G,B,A
 in vec2 TexCoord; //U.V
 
-uniform sampler2D texture1;  //sampler2D is also what we had in UE5, it takes in an empty black image when created, but has parameter of 0,0,0,0 as well.
+uniform sampler2D texture1; //sampler2D is also what we had in UE5, it takes in an empty black image when created, but has parameter of 0,0,0,0 as well.
 
 void main() {
     FragColor = texture(texture1, TexCoord); //So this would be a black texture with UV wrapped on a triangle.
+    //FragColor = vec4(TexCoord, 0.0, 1.0); // U.V to R n G //Test line
 }
 )";
 
 float vertices[] = {
     // pos   // U.V
-    -1.0f,  1.0f,   0.0f, 1.0f,  // top-left
-     1.0f,  1.0f,   1.0f, 1.0f,  // top-right
-     1.0f, -1.0f,   1.0f, 0.0f,  // bottom-right
-    -1.0f, -1.0f,   0.0f, 0.0f   // bottom-left
+    -1.0f/2,  1.0f/2,   0.0f, 1.0f,  // top-left
+     1.0f/2,  1.0f/2,   1.0f, 1.0f,  // top-right
+     1.0f/2, -1.0f/2,   1.0f, 0.0f,  // bottom-right
+    -1.0f/2, -1.0f/2,   0.0f, 0.0f   // bottom-left
 
     // Had a hard time learning what the fuck this is, but thanks to ChatGPT
     // No time to read documentation, maybe it is the way it was set up the vertex shader since it takes up vec4.
@@ -73,6 +74,16 @@ unsigned int createShader(GLenum type, const char* source) {
     
     glShaderSource(shader, 1, &source, nullptr); //nullptr makes sure that the object uses the entire string. char**
     glCompileShader(shader); //GLFW shader object compilation
+
+    // CHECK LINK LOG
+    int success;
+    char infoLog[512];
+    glGetProgramiv(shader, GL_LINK_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(shader, 512, NULL, infoLog);
+        std::cerr << "SHADER CREATE ERROR:\n" << infoLog << std::endl;
+    }
+    
     return shader;
 }
 
@@ -135,15 +146,53 @@ void WindowManager::MakeNewWindow(int WIDTH, int HEIGHT)
 
     glViewport(0, 0, WIDTH, HEIGHT);
 
+    glMatrixMode(GL_PROJECTION); //We learned this in Computer Graphics, it "flattens" the camera perspective to orthographics.
+    
+    glLoadIdentity();
+    float aspect = WIDTH / (float)HEIGHT;
+    if (aspect >= 1.0f)
+        glOrtho(-aspect, aspect, -1.0, 1.0, -1.0, 1.0);
+    else
+        glOrtho(-1.0, 1.0, -1.0f / aspect, 1.0f / aspect, -1.0, 1.0);
+    glMatrixMode(GL_MODELVIEW);
+
     //compiling shaders using creatreShader() for cleaner code
     unsigned int vShader = createShader(GL_VERTEX_SHADER, vertexShaderSource);
     unsigned int fShader = createShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
 
-    //attach compiled shader to shader program, assume that we only need to use this once, this is the background.
+    //attach compiled shader to glCreated shader program, assume that we only need to use this once, this is the background.
+    shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vShader);
     glAttachShader(shaderProgram, fShader);
     glLinkProgram(shaderProgram); //Tells GLFW that v,fshader are working together.
+
+    
+    // CHECK ERRORS - vShader, fShader and Linker
+    int success;
+    char infoLog[512];
+
+    glGetShaderiv(vShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetShaderInfoLog(vShader, 512, NULL, infoLog);
+        std::cerr << "Vertex Shader Error:\n" << infoLog << endl;
+    }
+
+    glGetShaderiv(fShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetShaderInfoLog(fShader, 512, NULL, infoLog);
+        std::cerr << "Fragment Shader Error:\n" << infoLog << endl;
+    }
+    
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        std::cerr << "SHADER LINK ERROR:\n" << infoLog << endl;
+    }
+    
     glUseProgram(shaderProgram); //Use the shader program.
+
+    //SO THAT THE GLFW KNOWS WHAT TEXTURE TO USE
+    glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
 
     //Generate empty array object and vertex/fragment buffers.
     glGenVertexArrays(1, &VAO);
@@ -172,6 +221,12 @@ void WindowManager::MakeNewWindow(int WIDTH, int HEIGHT)
 
     // Unbind VAO (optional safety)
     glBindVertexArray(0);
+
+    //Enable Opacity
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    std::cout << "Program ID: " << shaderProgram << endl;
 }
 
 bool WindowManager::isClosed()
