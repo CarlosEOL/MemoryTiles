@@ -140,8 +140,8 @@ void WindowManager::MakeNewWindow(int WIDTH, int HEIGHT)
     unsigned int fShader = createShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
 
     //attach compiled shader to shader program, assume that we only need to use this once, this is the background.
-    glAttachShader(shaderProgram, vShader);
     glAttachShader(shaderProgram, fShader);
+    glAttachShader(shaderProgram, vShader);
     glLinkProgram(shaderProgram); //Tells GLFW that v,fshader are working together.
     glUseProgram(shaderProgram); //Use the shader program.
 

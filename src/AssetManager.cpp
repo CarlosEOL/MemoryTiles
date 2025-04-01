@@ -7,7 +7,7 @@
 
 using namespace std;
 
-GLuint LoadTexture(const char* filePath) {
+GLuint AssetManager::LoadTexture(const char* filePath) {
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // Flip for OpenGL
     unsigned char* data = stbi_load(filePath, &width, &height, &nrChannels, 0);
@@ -42,6 +42,9 @@ GLuint LoadTexture(const char* filePath) {
 AssetManager::AssetManager()
 {
     hiddenTex = LoadTexture("assets/hidden.png");
+    cout<<"Loaded Hidden."<<endl;
     rightTex = LoadTexture("assets/right.png");
+    cout<<"Loaded Right."<<endl;
     wrongTex = LoadTexture("assets/wrong.png");
+    cout<<"Loaded Wrong."<<endl;
 }

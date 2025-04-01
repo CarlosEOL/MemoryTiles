@@ -18,5 +18,6 @@ public:
 
 private:
     AssetManager();
+    GLuint LoadTexture(const char* filePath);
     ~AssetManager() = default;
 };

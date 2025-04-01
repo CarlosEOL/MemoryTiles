@@ -19,7 +19,7 @@ void Grid::GenerateGrid()
     //vector<vector<bool>> grid = vector<vector<bool>>(_sizeX, vector<bool>(_sizeX, false));
     auto& assets = AssetManager::Get(); //auto is sort of like var in C#, it deduces object type, get asset manager's instance
     
-    float tileSize = 0.4f; //This can change depend on the size of the grid.
+    float tileSize = 0.3f; //This can change depend on the size of the grid.
     float startX = -1.0f + tileSize;
     float startY =  1.0f - tileSize;
     

@@ -494,7 +494,9 @@
     <ClInclude Include="src\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\" />
+    <Content Include="assets\hidden.png" />
+    <Content Include="assets\right.png" />
+    <Content Include="assets\wrong.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
