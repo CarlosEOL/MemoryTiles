@@ -1,12 +1,14 @@
 #include "glad/glad.h"
 #include "WindowManager.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 #include <iostream>
 
+#include "Grid.h"
+
 using namespace std;
+
+unsigned int WindowManager::shaderProgram = 0;
+unsigned int WindowManager::VAO, WindowManager::VBO, WindowManager::EBO;
 
 const char* vertexShaderSource = R"(
 #version 330 core
@@ -14,9 +16,13 @@ const char* vertexShaderSource = R"(
 layout (location = 0) in vec2 aPos; //VERY IMPORTANT, THE GLFW NEEDS THIS TO DRAW
 layout (location = 1) in vec2 aTexCoord;
 
+uniform vec2 offset;
+
 out vec2 TexCoord;
 
 void main() {
+    vec2 pos = apos + offset;
+    
     gl_Position = vec4(aPos, 0.0, 1.0); 
     //Built in Variable in GLFW, tells where to draw the vert on screen. 
     //0,0 is Z depth, unused in 2D, 1.0 is making sure you don't go 4D, WHAT IN THE BLACK MAGIC IS THIS
@@ -58,7 +64,7 @@ unsigned int indices[] = {
 };
 
 //GLenum takes in both Vertex and Fragment Shader, source takes in the Shader Source above
-//source is stored in C-String, but why is it char, C++'s string system is so weird.
+//source is stored in C-String, in another words - char*.
 
 // I'd imagine, char is 'C', and *char can store "String". Because GLFW is written in C, now wonder I had this much of confusion.
 
@@ -70,13 +76,30 @@ unsigned int createShader(GLenum type, const char* source) {
     return shader;
 }
 
-void WindowManager::Update()
+void WindowManager::Update(Player& player, Grid& grid)
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT); //Clear Screen
+    
+    grid.Draw();
     
     glfwSwapBuffers(window);
     glfwPollEvents();
-    //cout<<"Updated"; this works.
+
+    //Handles Mouse Input
+    double mouseX, mouseY;
+    glfwGetCursorPos(window, &mouseX, &mouseY);
+
+    //Get Window Size
+    int windowWidth, windowHeight;
+    glfwGetWindowSize(window, &windowWidth, &windowHeight);
+
+    //Convert Mouse Position to GLFW World Position, 0,0 to -1,-1, halved.
+    float xNDC = (mouseX / windowWidth) * 2.0f - 1.0f;
+    float yNDC = 1.0f - (mouseY / windowHeight) * 2.0f;  // Flip Y
+
+    player.HandlesMouseDown(window, xNDC, yNDC, grid);
+    
+    cout<< "Mouse X: " << xNDC <<" Mouse Y:  "<< yNDC <<endl; //This is right.
 }
 
 
@@ -99,6 +122,8 @@ void WindowManager::MakeNewWindow(int WIDTH, int HEIGHT)
     }
     glfwMakeContextCurrent(window);
 
+    cout <<"Made a new GLFW window." << endl;
+
     //Load OpenGL functions using GLAD, this is a required step to ensure glad.c is in solution
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     
@@ -114,12 +139,39 @@ void WindowManager::MakeNewWindow(int WIDTH, int HEIGHT)
     unsigned int vShader = createShader(GL_VERTEX_SHADER, vertexShaderSource);
     unsigned int fShader = createShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
 
-    //attach compiled shader to shader program, assume that we only need to use this once?
-    unsigned int shaderProgram = glCreateProgram();
+    //attach compiled shader to shader program, assume that we only need to use this once, this is the background.
     glAttachShader(shaderProgram, vShader);
     glAttachShader(shaderProgram, fShader);
-    glLinkProgram(shaderProgram);
-    glUseProgram(shaderProgram);
+    glLinkProgram(shaderProgram); //Tells GLFW that v,fshader are working together.
+    glUseProgram(shaderProgram); //Use the shader program.
+
+    //Generate empty array object and vertex/fragment buffers.
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+
+    //Bind to edit VAO
+    glBindVertexArray(VAO);
+
+    //Bind + fill VBO
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    //Bind + fill EBO
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // Tell OpenGL how to interpret vertex data
+    // Position attribute (location = 0)
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Texture coordinate attribute (location = 1)
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    // Unbind VAO (optional safety)
+    glBindVertexArray(0);
 }
 
 bool WindowManager::isClosed()

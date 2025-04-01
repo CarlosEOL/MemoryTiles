@@ -3,10 +3,11 @@
 #include <string>
 #include <thread>   //For sleep_for - From ChatGPT
 #include <chrono>   //For duration - From ChatGPT
-#include "Squretiles.h"
+
+#include "Grid.h"
 #include "WindowManager.h"
 
-const unsigned int WIDTH = 800, HEIGHT = 800; //Window Size
+const unsigned int WIDTH = 850, HEIGHT = 850; //Window Size
 
 using namespace std;
 namespace Functions
@@ -41,22 +42,20 @@ namespace Functions
 using namespace Functions;
 int main()
 {
-    
     WindowManager window = WindowManager();
     window.MakeNewWindow(WIDTH, HEIGHT);
-    cout<<"Made a new window.";
-    
-    int Lifes = 3;
-    int Level = 1;
-    
-    //Create Squaretiles for tile function//
-    Squretiles grid = Squretiles();
+    cout<<"Made a new window.\n" << endl;
+
+    Player player = Player();
+    cout<<"Made a new player.\n" << endl;
+
+    Grid grid = Grid();
     
     //Enter Game State, handles user input// window.isClosed()
     while (!window.isClosed())
     {
-        //Update Per Frame
-        window.Update();
+        window.Update(player, grid);
+        //cout << "Update";
         
 /*
         //Take in User Input in Console//

@@ -166,6 +166,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AssetManager.cpp" />
     <ClCompile Include="src\glad.c">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -324,7 +325,7 @@
       <AdditionalUsingDirectories>"C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\include"</AdditionalUsingDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
-    <ClCompile Include="src\Squretiles.cpp">
+    <ClCompile Include="src\Grid.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
@@ -403,6 +404,7 @@
       <AdditionalUsingDirectories>"C:\Users\SmoonthCriminal\OneDrive\Documents\CppProjectFiles\MemoryTiles\MemoryTiles\include"</AdditionalUsingDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Tile.cpp" />
     <ClCompile Include="src\WindowManager.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
@@ -485,9 +487,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Squretiles.h" />
+    <ClInclude Include="src\AssetManager.h" />
+    <ClInclude Include="src\Grid.h" />
+    <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Tile.h" />
     <ClInclude Include="src\WindowManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
