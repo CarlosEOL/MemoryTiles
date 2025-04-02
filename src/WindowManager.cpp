@@ -93,6 +93,7 @@ void WindowManager::Update(Player& player, Grid& grid)
     
     grid.Draw();
     
+    
     glfwSwapBuffers(window);
     glfwPollEvents();
 
