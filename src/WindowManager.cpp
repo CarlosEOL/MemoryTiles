@@ -48,10 +48,10 @@ void main() {
 
 float vertices[] = {
     // pos   // U.V
-    -1.0f/2,  1.0f/2,   0.0f, 1.0f,  // top-left
-     1.0f/2,  1.0f/2,   1.0f, 1.0f,  // top-right
-     1.0f/2, -1.0f/2,   1.0f, 0.0f,  // bottom-right
-    -1.0f/2, -1.0f/2,   0.0f, 0.0f   // bottom-left
+    -1.0f/3,  1.0f/3,   0.0f, 1.0f,  // top-left
+     1.0f/3,  1.0f/3,   1.0f, 1.0f,  // top-right
+     1.0f/3, -1.0f/3,   1.0f, 0.0f,  // bottom-right
+    -1.0f/3, -1.0f/3,   0.0f, 0.0f   // bottom-left
 
     // Had a hard time learning what the fuck this is, but thanks to ChatGPT
     // No time to read documentation, maybe it is the way it was set up the vertex shader since it takes up vec4.
@@ -104,7 +104,7 @@ void WindowManager::Update(Player& player, Grid& grid)
     int windowWidth, windowHeight;
     glfwGetWindowSize(window, &windowWidth, &windowHeight);
 
-    //Convert Mouse Position to GLFW World Position, 0,0 to -1,-1, halved.
+    //Convert Mouse Position to GLFW World Position, 0,0 to -1,-1, halved, NDC = Normalized Device Coordinates for GLFW window.
     float xNDC = (mouseX / windowWidth) * 2.0f - 1.0f;
     float yNDC = 1.0f - (mouseY / windowHeight) * 2.0f;  // Flip Y
 
@@ -165,7 +165,6 @@ void WindowManager::MakeNewWindow(int WIDTH, int HEIGHT)
     glAttachShader(shaderProgram, vShader);
     glAttachShader(shaderProgram, fShader);
     glLinkProgram(shaderProgram); //Tells GLFW that v,fshader are working together.
-
     
     // CHECK ERRORS - vShader, fShader and Linker
     int success;
