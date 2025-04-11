@@ -10,6 +10,8 @@ using namespace std;
 unsigned int WindowManager::shaderProgram = 0;
 unsigned int WindowManager::VAO, WindowManager::VBO, WindowManager::EBO;
 
+float WindowManager::verticeDistance = 3.0f;
+
 const char* vertexShaderSource = R"(
 #version 330 core
 
@@ -48,10 +50,10 @@ void main() {
 
 float vertices[] = {
     // pos   // U.V
-    -1.0f/3,  1.0f/3,   0.0f, 1.0f,  // top-left
-     1.0f/3,  1.0f/3,   1.0f, 1.0f,  // top-right
-     1.0f/3, -1.0f/3,   1.0f, 0.0f,  // bottom-right
-    -1.0f/3, -1.0f/3,   0.0f, 0.0f   // bottom-left
+    -1.0f/WindowManager::verticeDistance,  1.0f/WindowManager::verticeDistance,   0.0f, 1.0f,  // top-left
+     1.0f/WindowManager::verticeDistance,  1.0f/WindowManager::verticeDistance,   1.0f, 1.0f,  // top-right
+     1.0f/WindowManager::verticeDistance, -1.0f/WindowManager::verticeDistance,   1.0f, 0.0f,  // bottom-right
+    -1.0f/WindowManager::verticeDistance, -1.0f/WindowManager::verticeDistance,   0.0f, 0.0f   // bottom-left
 
     // Had a hard time learning what the fuck this is, but thanks to ChatGPT
     // No time to read documentation, maybe it is the way it was set up the vertex shader since it takes up vec4.
@@ -92,7 +94,7 @@ void WindowManager::Update(Player& player, Grid& grid)
     glClear(GL_COLOR_BUFFER_BIT); //Clear Screen
     
     grid.Draw();
-    
+    verticeDistance = grid.GetSize();
     
     glfwSwapBuffers(window);
     glfwPollEvents();

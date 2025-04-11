@@ -92,6 +92,12 @@ void Grid::Draw()
         tile.Draw();
 }
 
+int Grid::GetSize()
+{
+    return _size;
+}
+
+
 void Grid::DrawStringTiles()
 {
     system("cls");

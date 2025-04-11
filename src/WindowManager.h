@@ -16,6 +16,7 @@ public:
 
     static unsigned int shaderProgram;
     static unsigned int VAO, VBO, EBO;
+    static float verticeDistance;
     
     //Public Constructor to Call when new window is created
     WindowManager()

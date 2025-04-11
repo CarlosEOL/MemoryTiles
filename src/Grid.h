@@ -80,6 +80,7 @@ public:
     void DrawStringTiles();
     void HideTiles(); // Simple Draw Grid of Os//
     bool CheckTiles(int, int); // Checks if the tile is true, returns tile bool. Input y,x coord and save it to _SavedCoords //
+    int GetSize();
     
     Tile& GetTile(int, int); // Samething as above, but returns a tile address
     vector<Tile>& GetGrid();
