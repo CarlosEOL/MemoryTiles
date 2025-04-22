@@ -19,11 +19,12 @@ layout (location = 0) in vec2 aPos; //VERY IMPORTANT, THE GLFW NEEDS THIS TO DRA
 layout (location = 1) in vec2 aTexCoord;
 
 uniform vec2 offset;
+uniform float scale;
 
 out vec2 TexCoord;
 
 void main() {
-    vec2 pos = aPos + offset;
+    vec2 pos = aPos * scale + offset;
     
     gl_Position = vec4(pos, 0.0, 1.0); 
     //Built in Variable in GLFW, tells where to draw the vert on screen. 
@@ -49,11 +50,11 @@ void main() {
 )";
 
 float vertices[] = {
-    // pos   // U.V
-    -1.0f/WindowManager::verticeDistance,  1.0f/WindowManager::verticeDistance,   0.0f, 1.0f,  // top-left
-     1.0f/WindowManager::verticeDistance,  1.0f/WindowManager::verticeDistance,   1.0f, 1.0f,  // top-right
-     1.0f/WindowManager::verticeDistance, -1.0f/WindowManager::verticeDistance,   1.0f, 0.0f,  // bottom-right
-    -1.0f/WindowManager::verticeDistance, -1.0f/WindowManager::verticeDistance,   0.0f, 0.0f   // bottom-left
+    // pos          // U.V
+    -1.0f,  1.0f,   0.0f, 1.0f,  // top-left
+     1.0f,  1.0f,   1.0f, 1.0f,  // top-right
+     1.0f, -1.0f,   1.0f, 0.0f,  // bottom-right
+    -1.0f, -1.0f,   0.0f, 0.0f   // bottom-left
 
     // Had a hard time learning what the fuck this is, but thanks to ChatGPT
     // No time to read documentation, maybe it is the way it was set up the vertex shader since it takes up vec4.
@@ -94,7 +95,6 @@ void WindowManager::Update(Player& player, Grid& grid)
     glClear(GL_COLOR_BUFFER_BIT); //Clear Screen
     
     grid.Draw();
-    verticeDistance = grid.GetSize();
     
     glfwSwapBuffers(window);
     glfwPollEvents();

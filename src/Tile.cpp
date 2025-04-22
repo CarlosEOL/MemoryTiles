@@ -12,7 +12,7 @@ Tile::Tile(float x, float y, float size, GLuint hiddenTex, GLuint rightTex, GLui
       wrongTexture(wrongTex),
       isRight(isRight){}
 
-void Tile::Draw()
+void Tile::Draw(int size)
 {
     //Use Shader Program made in WindowsManager
     glUseProgram(WindowManager::shaderProgram);
@@ -24,16 +24,15 @@ void Tile::Draw()
         currentTexture = wrongTexture;
 
     cout<<"Drawing Tile"<<endl; //This is not called.
-
     
     //Select, then Bind texture to texture2D, texture edit.
     glActiveTexture(GL_TEXTURE0); // Select texture unit 0
     glBindTexture(GL_TEXTURE_2D, currentTexture);
 
     //Offset image in GLFW worldlocglActiveTexture(GL_TEXTURE0); // Select texture unit 0
+    float scale = 1.0f / size;
+    glUniform1f(glGetUniformLocation(WindowManager::shaderProgram, "scale"), scale);
     glUniform2f(glGetUniformLocation(WindowManager::shaderProgram, "offset"), x, y);
-
-    //GLuint offsetLoc = glGetUniformLocation(WindowManager::shaderProgram, "offset");
 
     //Bind the shared VAO
     glBindVertexArray(WindowManager::VAO);

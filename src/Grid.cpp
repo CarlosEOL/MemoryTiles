@@ -89,7 +89,7 @@ void Grid::IncreaseSize()
 void Grid::Draw()
 {
     for (Tile& tile : tileGrid)
-        tile.Draw();
+        tile.Draw(_size);
 }
 
 int Grid::GetSize()
