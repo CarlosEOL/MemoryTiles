@@ -9,12 +9,20 @@
 
 using namespace std;
 
-void Grid::GenerateGrid()
+Grid::Grid(int size)
 {
     srand(time(NULL)); //From https://stackoverflow.com/questions/14849866/c-rand-is-not-really-random, so that rand() is truly random
-    
-    //Properly initialize an nested vectors by filling it with data, if the saved coords are -1 they are ignored. 
-    //_SavedCoords = vector<vector<int>>(maxSaveIndex, vector<int>(2, -1));
+    _size = size;
+    GenerateGrid(_size);
+}
+
+
+void Grid::GenerateGrid(int size)
+{
+    std::cout << "Clearing old tileGrid (size: " << tileGrid.size() << ")\n";
+    tileGrid.clear();
+    std::cout << "New tileGrid (size: " << tileGrid.size() << ")\n";
+    tileGrid.shrink_to_fit();
     
     //vector<vector<bool>> grid = vector<vector<bool>>(_sizeX, vector<bool>(_sizeX, false));
     auto& assets = AssetManager::Get(); //auto is sort of like var in C#, it deduces object type, get asset manager's instance
@@ -22,20 +30,22 @@ void Grid::GenerateGrid()
     std::cout << "HiddenTex ID: " << assets.hiddenTex << "\n";
     std::cout << "RightTex ID: " << assets.rightTex << "\n";
     std::cout << "WrongTex ID: " << assets.wrongTex << "\n";
+
+    float conv = static_cast<float>(size);
     
-    float tileSize = 1.0f / _size; //This can change depend on the size of the grid.
+    float tileSize = 1.0f / conv; //This can change depend on the size of the grid.
     float tileSpacing = tileSize * 2.01f;
 
     cout<<"Tile Spacing: " << tileSpacing << "\n";
 
-    float gridWidth = _size * tileSpacing;
-    float gridHeight = _size * tileSpacing;
+    float gridWidth = conv * tileSpacing;
+    float gridHeight = conv * tileSpacing;
     
     float startX = -gridWidth / 2.0f + tileSpacing / 2.0f;
     float startY =  gridHeight / 2.0f - tileSpacing / 2.0f;
     
-    for (int row = 0; row < _size; row++) {
-        for (int col = 0; col < _size; col++) {
+    for (int row = 0; row < size; row++) {
+        for (int col = 0; col < size; col++) {
 
             //This is scaled for image size
             float x = startX + col * tileSpacing;

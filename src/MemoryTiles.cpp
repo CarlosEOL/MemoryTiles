@@ -46,17 +46,15 @@ int main()
     window.MakeNewWindow(WIDTH, HEIGHT);
     cout<<"Made a new window.\n" << endl;
 
-    Player player;
-    cout<<"Made a new player.\n" << endl;
-
     Grid grid = Grid(3); //Don't use = new Grid(), this creates a pointer.
+    
+    playerInstance.grid = &grid; //Give the address of the grid to player, or its instance
     
     //Enter Game State, handles user input// window.isClosed()
     while (!window.isClosed())
     {
-        window.Update(player, grid);
+        window.Update(playerInstance, grid);
         //cout << "Update";
-        
 /*
         //Take in User Input in Console//
         cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";

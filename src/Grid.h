@@ -42,7 +42,7 @@ public:
     Grid()
     {
         //Create a new grid, filled with randomized true and false//
-        GenerateGrid();
+        GenerateGrid(3);
 
         //Draw to Console//
         DrawStringTiles();
@@ -64,22 +64,19 @@ public:
         */
     }
 
-    Grid(int size)
-    {
-        _size = size;
-        GenerateGrid();
-    }
+    Grid(int size);
 
     char empty = 'O';
     char sqr = '0';
     char wrong = 'X';
 
     // These are pretty straightforward, most of them have O2 algorithm that checks the _grid for grid randomization or checking tile true & false.
-    void GenerateGrid();
+    void GenerateGrid(int);
     void Draw();
     void DrawStringTiles();
     void HideTiles(); // Simple Draw Grid of Os//
     bool CheckTiles(int, int); // Checks if the tile is true, returns tile bool. Input y,x coord and save it to _SavedCoords //
+    bool PlayerHasWon();
     int GetSize();
     
     Tile& GetTile(int, int); // Samething as above, but returns a tile address

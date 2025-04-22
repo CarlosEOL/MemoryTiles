@@ -1,7 +1,9 @@
 #pragma once
 
+#include <functional>
 #include <glad/glad.h>
 
+using namespace std;
 enum TileState // TO BE FAIR, THIS IS A LOT BETTER THAN ARRAYS.
 {
     Hidden,
@@ -17,7 +19,7 @@ public:
     Tile(float x, float y, float size, GLuint hiddenTex, GLuint rightTex, GLuint wrongTex, bool isRight);
 
     void Draw(int);
-    void Reveal();
+    void Reveal(function<void(bool)>);
     void Reset();
     bool Contains(float mouseX, float mouseY) const;
     
@@ -27,8 +29,8 @@ private:
     
     float x, y, size;
     bool isRight;
+    
     TileState state = Hidden;
-
     GLuint hiddenTexture;
     GLuint rightTexture;
     GLuint wrongTexture;

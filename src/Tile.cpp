@@ -49,9 +49,14 @@ void Tile::Draw(int size)
     std::cout << "Program ID: " << WindowManager::shaderProgram << endl;
 }
 
-void Tile::Reveal()
+void Tile::Reveal(function<void(bool)> OnReveal)
 {
+    if (state != Hidden) return; // Don't re-reveal
+    
     state = isRight ? RevealedRight : RevealedWrong;
+    
+    if (OnReveal)
+        OnReveal(isRight);
 }
 
 void Tile::Reset()
