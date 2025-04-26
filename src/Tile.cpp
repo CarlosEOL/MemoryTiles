@@ -59,7 +59,7 @@ void Tile::Reveal(function<void(bool)> OnReveal)
         OnReveal(isRight);
 }
 
-bool Tile::GetContains()
+bool Tile::GetContains() const
 {
     return isRight;
 }

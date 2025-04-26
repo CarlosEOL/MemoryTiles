@@ -21,7 +21,10 @@ private:
 
     //Size of Grid//
     int _size;
-    int wrongTiles;
+    int amtWrongTiles;
+    int amtRightTiles;
+
+    int amtPlayerTiles;
 
     //TempSaveCoord//
     //int totalCoordSize = 0;

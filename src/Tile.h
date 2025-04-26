@@ -24,9 +24,10 @@ public:
     void SetState(TileState);
     
     void Reset();
-    bool GetContains();
-    void SetContains(bool);
+    
     bool Contains(float mouseX, float mouseY) const;
+    bool GetContains() const;
+    void SetContains(bool);
     
     TileState GetState() const;
 

@@ -44,7 +44,9 @@ void Grid::GenerateGrid(int size)
     float startX = -gridWidth / 2.0f + tileSpacing / 2.0f;
     float startY =  gridHeight / 2.0f - tileSpacing / 2.0f;
 
-    wrongTiles = 0;
+    amtWrongTiles = 0;
+    amtRightTiles = 0;
+    amtPlayerTiles = 0;
     
     for (int row = 0; row < size; row++)
     {
@@ -57,19 +59,25 @@ void Grid::GenerateGrid(int size)
             bool isRight = rand()%2;
 
             // Below Sequence of ifs prevents grid to have less than 2 wrong tiles
-            if (!isRight)
+            if (isRight)
             {
-                wrongTiles++;
+                amtRightTiles++;
             }
+            else
+            {
+                amtWrongTiles++;
+            }
+            
             // At the last rol & col, if the total wronog tile is less than size = 3+, set the first tile that is true to false. - Janky ass fix.
-            if (col == size - 1 && row == size - 1 && wrongTiles < size)
+            if (col == size - 1 && row == size - 1 && amtWrongTiles < size)
             {
                 for (Tile tiles : tileGrid)
                 {
                     if (tiles.GetContains()) //Set the first one that is true to false.
                     {
                         tiles.SetContains(false);
-                        wrongTiles++;
+                        amtWrongTiles++;
+                        amtRightTiles--;
                         break;
                     }
                 }
