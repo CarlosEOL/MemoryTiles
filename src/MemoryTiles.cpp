@@ -55,6 +55,8 @@ int main()
     {
         window.Update(playerInstance, grid);
         //cout << "Update";
+
+        
 /*
         //Take in User Input in Console//
         cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";

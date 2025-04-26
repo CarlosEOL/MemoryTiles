@@ -59,6 +59,22 @@ void Tile::Reveal(function<void(bool)> OnReveal)
         OnReveal(isRight);
 }
 
+bool Tile::GetContains()
+{
+    return isRight;
+}
+
+void Tile::SetContains(bool is)
+{
+    isRight = is;
+}
+
+void Tile::SetState(TileState currentState)
+{
+    state = currentState;
+}
+
+
 void Tile::Reset()
 {
     state = Hidden;

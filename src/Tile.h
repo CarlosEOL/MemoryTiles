@@ -20,7 +20,12 @@ public:
 
     void Draw(int);
     void Reveal(function<void(bool)>);
+
+    void SetState(TileState);
+    
     void Reset();
+    bool GetContains();
+    void SetContains(bool);
     bool Contains(float mouseX, float mouseY) const;
     
     TileState GetState() const;

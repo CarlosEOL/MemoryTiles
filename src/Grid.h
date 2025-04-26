@@ -21,6 +21,7 @@ private:
 
     //Size of Grid//
     int _size;
+    int wrongTiles;
 
     //TempSaveCoord//
     //int totalCoordSize = 0;
@@ -73,6 +74,10 @@ public:
     // These are pretty straightforward, most of them have O2 algorithm that checks the _grid for grid randomization or checking tile true & false.
     void GenerateGrid(int);
     void Draw();
+
+    void Reveal();
+    void Hide();
+    
     void DrawStringTiles();
     void HideTiles(); // Simple Draw Grid of Os//
     bool CheckTiles(int, int); // Checks if the tile is true, returns tile bool. Input y,x coord and save it to _SavedCoords //

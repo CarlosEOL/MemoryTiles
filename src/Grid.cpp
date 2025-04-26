@@ -43,19 +43,51 @@ void Grid::GenerateGrid(int size)
     
     float startX = -gridWidth / 2.0f + tileSpacing / 2.0f;
     float startY =  gridHeight / 2.0f - tileSpacing / 2.0f;
-    
-    for (int row = 0; row < size; row++) {
-        for (int col = 0; col < size; col++) {
 
-            //This is scaled for image size
+    wrongTiles = 0;
+    
+    for (int row = 0; row < size; row++)
+    {
+        for (int col = 0; col < size; col++)
+        {
+            // This is scaled for image size
             float x = startX + col * tileSpacing;
             float y = startY - row * tileSpacing;
 
+            bool isRight = rand()%2;
+
+            // Below Sequence of ifs prevents grid to have less than 2 wrong tiles
+            if (!isRight)
+            {
+                wrongTiles++;
+            }
+            // At the last rol & col, if the total wronog tile is less than size = 3+, set the first tile that is true to false. - Janky ass fix.
+            if (col == size - 1 && row == size - 1 && wrongTiles < size)
+            {
+                for (Tile tiles : tileGrid)
+                {
+                    if (tiles.GetContains()) //Set the first one that is true to false.
+                    {
+                        tiles.SetContains(false);
+                        wrongTiles++;
+                        break;
+                    }
+                }
+            }
+            
             tileGrid.emplace_back(Tile(x, y, tileSize,
-                assets.hiddenTex, assets.rightTex, assets.wrongTex, rand()%2)); //Takes in coord, image assets and random true/false
+                assets.hiddenTex, assets.rightTex, assets.wrongTex, isRight)); //Takes in coord, image assets and random true/false
         }
     }
     cout << "Grid Size: " << tileGrid.size() << endl; // Size is 0 for some reason.
+    
+    Reveal();
+    Draw();
+    this_thread::sleep_for(chrono::seconds(2));
+    Hide();
+    Draw();
+    
+    
 /*
     for (int y = 0; y < _size; y++)
     {
@@ -100,6 +132,26 @@ void Grid::Draw()
 {
     for (Tile& tile : tileGrid)
         tile.Draw(_size);
+}
+
+void Grid::Reveal()
+{
+    for (Tile& tile : tileGrid)
+        
+        if (tile.GetContains())
+        {
+            tile.SetState(RevealedRight);
+        }
+        else
+        {
+            tile.SetState(RevealedWrong);
+        }
+}
+
+void Grid::Hide()
+{
+    for (Tile& tile : tileGrid)
+        tile.SetState(Hidden);
 }
 
 int Grid::GetSize()
