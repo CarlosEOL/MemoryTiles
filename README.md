@@ -1,6 +1,8 @@
 # MemoryTiles
  Dynamic Array with Nested Vectors, Memory Allocation and User IO.
 
+ GLFW is used for graphics interface, and GLAD for dir12 & newest Opengl functions.
+
 
 ## Summary
 
