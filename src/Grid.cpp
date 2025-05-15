@@ -19,7 +19,7 @@ Grid::Grid(int size)
 
 void Grid::GenerateGrid(int size)
 {
-    std::cout << "Clearing old tileGrid (size: " << tileGrid.size() << ")\n";
+    std::cout << "Clearing old grid\n";
     tileGrid.clear();
     std::cout << "New tileGrid (size: " << tileGrid.size() << ")\n";
     tileGrid.shrink_to_fit();
@@ -46,7 +46,6 @@ void Grid::GenerateGrid(int size)
 
     amtWrongTiles = 0;
     amtRightTiles = 0;
-    amtPlayerTiles = 0;
     
     for (int row = 0; row < size; row++)
     {
@@ -55,10 +54,9 @@ void Grid::GenerateGrid(int size)
             // This is scaled for image size
             float x = startX + col * tileSpacing;
             float y = startY - row * tileSpacing;
+            
+            bool isRight = rand() % 2;
 
-            bool isRight = rand()%2;
-
-            // Below Sequence of ifs prevents grid to have less than 2 wrong tiles
             if (isRight)
             {
                 amtRightTiles++;
@@ -68,34 +66,47 @@ void Grid::GenerateGrid(int size)
                 amtWrongTiles++;
             }
             
-            // At the last rol & col, if the total wronog tile is less than size = 3+, set the first tile that is true to false. - Janky ass fix.
-            if (col == size - 1 && row == size - 1 && amtWrongTiles < size)
-            {
-                for (Tile tiles : tileGrid)
-                {
-                    if (tiles.GetContains()) //Set the first one that is true to false.
-                    {
-                        tiles.SetContains(false);
-                        amtWrongTiles++;
-                        amtRightTiles--;
-                        break;
-                    }
-                }
-            }
-            
             tileGrid.emplace_back(Tile(x, y, tileSize,
                 assets.hiddenTex, assets.rightTex, assets.wrongTex, isRight)); //Takes in coord, image assets and random true/false
         }
     }
+
+    // At the last rol & col, if the total wronog tile is less than size = 3+, set the first tile that is true to false. - Janky ass fix.
+///*
+    if (amtWrongTiles < size)
+    {
+        for (Tile tiles : tileGrid)
+        {
+            if (tiles.GetContains()) //Set the first one that is true to false.
+            {
+                tiles.SetContains(false);
+                amtWrongTiles++;
+                amtRightTiles--;
+                break;
+            }
+        }
+    }
+//*/
+
+/* Used to test out win conditions
+    if (amtWrongTiles != 0)
+    {
+        for (Tile& tiles : tileGrid)
+        {
+            if (!tiles.GetContains()) //Set true to false
+            {
+                tiles.SetContains(true);
+                amtWrongTiles--;
+                amtRightTiles++;
+            }
+        }
+        cout << "Grid Only Have false! \n" << endl;
+    }
+//*/
+    
     cout << "Grid Size: " << tileGrid.size() << endl; // Size is 0 for some reason.
     
     Reveal();
-    Draw();
-    this_thread::sleep_for(chrono::seconds(2));
-    Hide();
-    Draw();
-    
-    
 /*
     for (int y = 0; y < _size; y++)
     {
@@ -154,6 +165,10 @@ void Grid::Reveal()
         {
             tile.SetState(RevealedWrong);
         }
+    
+    // Start reveal timer
+    revealTimer = 1.5f;
+    revealing = true;
 }
 
 void Grid::Hide()
@@ -165,6 +180,22 @@ void Grid::Hide()
 int Grid::GetSize()
 {
     return _size;
+}
+
+void Grid::DecrementRightTiles()
+{
+    amtRightTiles--;
+
+    if (amtRightTiles <= 0)
+    {
+        _size++;
+        GenerateGrid(_size);
+    }
+}
+
+void Grid::DecrementWrongTiles()
+{
+    amtWrongTiles--;
 }
 
 
@@ -268,4 +299,3 @@ bool Grid::CheckTiles(int row, int col)
     //return _SavedCoords[row][col]; //NOT USED, DO NOT MARK THIS
 }
 */
-

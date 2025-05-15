@@ -3,6 +3,7 @@
 #include <iostream>
 #include <ostream>
 #include <thread>
+#include <windows.h>
 
 Player playerInstance;
 
@@ -15,9 +16,20 @@ void Player::HandlesMouseDown(GLFWwindow* window, float xNDC, float yNDC, Grid& 
                 {
                     if (!isRight)
                     {
+                        if (playerInstance.Health == 1)
+                        {
+                            this_thread::sleep_for(chrono::milliseconds(80));
+                        }
+
+                        playerInstance.grid->DecrementWrongTiles();
                         playerInstance.TakeDamage();
-                        cout << "Revealed a Tile!" << endl;
                     }
+                    else
+                    {
+                        playerInstance.grid->DecrementRightTiles();
+                    }
+                    
+                    cout << "Revealed a Tile!" << endl;
                 });
                 
                 break;
@@ -36,8 +48,6 @@ void Player::TakeDamage() {
         if (Health == 0)
         {
             cout << "Player Death!" << endl;
-        
-            this_thread::sleep_for(chrono::milliseconds(80));
             
             if (grid != nullptr)
             {

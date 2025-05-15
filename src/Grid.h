@@ -24,7 +24,7 @@ private:
     int amtWrongTiles;
     int amtRightTiles;
 
-    int amtPlayerTiles;
+    float revealTime = 1.5f; // seconds
 
     //TempSaveCoord//
     //int totalCoordSize = 0;
@@ -38,6 +38,8 @@ private:
     //int maxSaveIndex;
     
 public:
+    bool revealing = true;
+    float revealTimer = 0.0f;
     //Record Coord so game can rememeber when checking for correct tiles/duplicate coord
     //int currentSaveIndex = 0;
    // vector <vector<int>> _SavedCoords;
@@ -89,6 +91,9 @@ public:
     
     Tile& GetTile(int, int); // Samething as above, but returns a tile address
     vector<Tile>& GetGrid();
+
+    void DecrementRightTiles();
+    void DecrementWrongTiles();
     
     void DrawInputedTiles(vector<int>); // Draws all guessed tiles //
     void IncreaseSize(); // Increase grid size //

@@ -3,6 +3,7 @@
 #include <string>
 #include <thread>   //For sleep_for - From ChatGPT
 #include <chrono>   //For duration - From ChatGPT
+#include <windows.h>
 
 #include "Grid.h"
 #include "WindowManager.h"
@@ -42,6 +43,9 @@ namespace Functions
 using namespace Functions;
 int main()
 {
+    using clock = std::chrono::steady_clock;
+    auto lastTime = clock::now();
+    
     WindowManager window;
     window.MakeNewWindow(WIDTH, HEIGHT);
     cout<<"Made a new window.\n" << endl;
@@ -53,8 +57,25 @@ int main()
     //Enter Game State, handles user input// window.isClosed()
     while (!window.isClosed())
     {
+        auto now = clock::now();
+        chrono::duration<float> elapsed = now - lastTime;
+
+        float deltaTime = elapsed.count();
+        
+        lastTime = now;
+        
         window.Update(playerInstance, grid);
         //cout << "Update";
+
+        if (grid.revealing)
+        {
+            grid.revealTimer -= deltaTime;
+            if (grid.revealTimer <= 0.0f)
+            {
+                grid.revealing = false;
+                grid.Hide();
+            }
+        }
 
         
 /*
