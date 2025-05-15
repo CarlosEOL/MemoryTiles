@@ -3,7 +3,6 @@
 #include <iostream>
 #include <ostream>
 #include <thread>
-#include <windows.h>
 
 Player playerInstance;
 
@@ -12,7 +11,7 @@ void Player::HandlesMouseDown(GLFWwindow* window, float xNDC, float yNDC, Grid& 
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && playerInstance.Health > 0) {
         for (Tile& tile : grid.GetGrid()) {
             if (tile.Contains(xNDC, yNDC)) {
-                tile.Reveal([](bool isRight)
+                tile.Reveal([&grid](bool isRight)
                 {
                     if (!isRight)
                     {
@@ -21,12 +20,12 @@ void Player::HandlesMouseDown(GLFWwindow* window, float xNDC, float yNDC, Grid& 
                             this_thread::sleep_for(chrono::milliseconds(80));
                         }
 
-                        playerInstance.grid->DecrementWrongTiles();
+                        grid.DecrementWrongTiles();
                         playerInstance.TakeDamage();
                     }
                     else
                     {
-                        playerInstance.grid->DecrementRightTiles();
+                        grid.DecrementRightTiles();
                     }
                     
                     cout << "Revealed a Tile!" << endl;
