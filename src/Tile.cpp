@@ -12,7 +12,7 @@ Tile::Tile(float x, float y, float size, GLuint hiddenTex, GLuint rightTex, GLui
       wrongTexture(wrongTex),
       isRight(isRight){}
 
-void Tile::Draw(int size)
+void Tile::Draw(int& size)
 {
     //Use Shader Program made in WindowsManager
     glUseProgram(WindowManager::shaderProgram);

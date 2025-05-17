@@ -167,7 +167,7 @@ void WindowManager::MakeNewWindow(int WIDTH, int HEIGHT)
     shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vShader);
     glAttachShader(shaderProgram, fShader);
-    glLinkProgram(shaderProgram); //Tells GLFW that v,fshader are working together.
+    glLinkProgram(shaderProgram); //Tells GLFW that v,f shader are working together.
     
     // CHECK ERRORS - vShader, fShader and Linker
     int success;

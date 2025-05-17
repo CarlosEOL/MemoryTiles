@@ -19,6 +19,7 @@ Grid::Grid(int size)
 
 void Grid::GenerateGrid(int size)
 {
+    _size = size;
     std::cout << "Clearing old grid\n";
     tileGrid.clear();
     std::cout << "New tileGrid (size: " << tileGrid.size() << ")\n";
