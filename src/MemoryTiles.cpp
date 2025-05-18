@@ -76,8 +76,6 @@ int main()
                 grid.Hide();
             }
         }
-
-        
 /*
         //Take in User Input in Console//
         cout << "\n\nEnter 2 numbers indicating rows and columns, ex - (y,x): \n";
@@ -120,8 +118,9 @@ int main()
             //Lifes--;
             break;
         }
+
+        this_thread::sleep_for(chrono::seconds(1));
 */
-        //this_thread::sleep_for(chrono::seconds(1));
     }
     
     glfwTerminate();
