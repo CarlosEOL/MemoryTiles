@@ -3,7 +3,6 @@
 #include <string>
 #include <thread>   //For sleep_for - From ChatGPT
 #include <chrono>   //For duration - From ChatGPT
-#include <windows.h>
 
 #include "Grid.h"
 #include "WindowManager.h"
